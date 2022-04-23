@@ -1,19 +1,20 @@
-package bjorn.arnelid.housecalculator;
+package bjorn.arnelid.housecalculator.model;
 
+import bjorn.arnelid.housecalculator.model.Member;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestUser {
+public class TestMember {
     @Test
     public void testUserName() {
-        User user = new User("The Name");
+        Member user = new Member("The Name");
         assertEquals(user.getName(), "The Name");
     }
 
     @Test
     public void testUserPay() {
-        User user = new User("The Name");
+        Member user = new Member("The Name");
         assertEquals(0, user.getPay());
         user.setPay(10000);
         assertEquals(10000, user.getPay());
@@ -21,8 +22,8 @@ public class TestUser {
 
     @Test
     public void testUpdateUser() {
-        User user = new User("A Name");
-        User updatedUser = new User("Another Name");
+        Member user = new Member("A Name");
+        Member updatedUser = new Member("Another Name");
         updatedUser.setPay(10000);
         user.update(updatedUser);
         assertEquals("Another Name", user.getName());

@@ -1,4 +1,4 @@
-package bjorn.arnelid.housecalculator;
+package bjorn.arnelid.housecalculator.ui;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

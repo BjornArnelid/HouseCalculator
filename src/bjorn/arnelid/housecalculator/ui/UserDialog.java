@@ -1,5 +1,6 @@
-package bjorn.arnelid.housecalculator;
+package bjorn.arnelid.housecalculator.ui;
 
+import bjorn.arnelid.housecalculator.model.Member;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -7,9 +8,9 @@ import javafx.scene.layout.GridPane;
 import java.util.Optional;
 
 public class UserDialog {
-    private final Dialog<User> dialog;
+    private final Dialog<Member> dialog;
 
-    public UserDialog(User user) {
+    public UserDialog(Member user) {
         dialog = new Dialog<>();
         if(user == null) {
             dialog.setTitle("New User");
@@ -44,7 +45,7 @@ public class UserDialog {
 
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == loginButtonType) {
-                return new User(name.getText(), income.getText());
+                return new Member(name.getText(), income.getText());
             }
             return null;
         });
@@ -55,7 +56,7 @@ public class UserDialog {
      *
      * @return created user or null
      */
-    public Optional<User> show() {
+    public Optional<Member> show() {
         return dialog.showAndWait();
     }
 }

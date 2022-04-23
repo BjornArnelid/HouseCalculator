@@ -1,5 +1,9 @@
 package bjorn.arnelid.housecalculator;
 
+import bjorn.arnelid.housecalculator.model.Economy;
+import bjorn.arnelid.housecalculator.model.Member;
+import bjorn.arnelid.housecalculator.ui.CalculatorPane;
+import bjorn.arnelid.housecalculator.ui.UserDialog;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,14 +15,12 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 public class HouseCalculator extends Application {
-    private final List<User> users = new ArrayList<>();
+//    private final List<Member> users = new ArrayList<>();
+    private final Economy economy = new Economy();
     private CalculatorPane root;
 
     public static void main(String[] args) {
@@ -33,8 +35,8 @@ public class HouseCalculator extends Application {
         Menu userMenu = new Menu("User");
         mb.getMenus().add(userMenu);
 
-        for (User user : this.users) {
-            addUserItem(userMenu, user);
+        for (Member member : this.economy.getMembers()) {
+            addUserItem(userMenu, member);
         }
 
         userMenu.getItems().add(new SeparatorMenuItem());
@@ -44,7 +46,7 @@ public class HouseCalculator extends Application {
 
         EventHandler<ActionEvent> event = actionEvent -> {
             UserDialog dialog = new UserDialog(null);
-            Optional<User> result = dialog.show();
+            Optional<Member> result = dialog.show();
             result.ifPresent(user -> addUserItem(userMenu, user));
             updateToSpend();
         };
@@ -58,23 +60,23 @@ public class HouseCalculator extends Application {
         stage.show();
     }
 
-    private void addUserItem(Menu userMenu, User user) {
-        users.add(user);
+    private void addUserItem(Menu userMenu, Member member) {
+        this.economy.addMember(member);
 
-        MenuItem existingUser= new MenuItem(user.getName());
+        MenuItem existingUser= new MenuItem(member.getName());
         userMenu.getItems().add(0, existingUser);
 
         EventHandler<ActionEvent> event = actionEvent -> {
-            UserDialog dialog = new UserDialog(user);
-            Optional<User> result = dialog.show();
-            result.ifPresent(user::update);
+            UserDialog dialog = new UserDialog(member);
+            Optional<Member> result = dialog.show();
+            result.ifPresent(member::update);
             updateToSpend();
         };
         existingUser.setOnAction(event);
     }
 
     private void updateToSpend() {
-        Integer amount = users.stream().collect(Collectors.summingInt(User::getPay));
+        Integer amount = this.economy.getToSpend();
         root.updateToSpend(amount);
     }
 }

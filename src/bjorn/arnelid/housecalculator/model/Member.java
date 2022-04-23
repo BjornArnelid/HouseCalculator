@@ -1,19 +1,19 @@
-package bjorn.arnelid.housecalculator;
+package bjorn.arnelid.housecalculator.model;
 
-public class User {
+public class Member {
     private String name = "";
     private int pay = 0;
 
-    public User(String name) {
+    public Member(String name) {
         this.name = name;
     }
 
-    public User(String name, String incomeText) {
+    public Member(String name, String incomeText) {
         this.name = name;
         this.pay = Integer.parseInt(incomeText);
     }
 
-    public User() {
+    public Member() {
 
     }
 
@@ -31,7 +31,7 @@ public class User {
         this.pay = ammount;
     }
 
-    public void update(User user) {
+    public void update(Member user) {
         this.name = user.getName();
         this.pay = user.getPay();
     }
