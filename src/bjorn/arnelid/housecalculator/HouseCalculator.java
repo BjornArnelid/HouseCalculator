@@ -14,10 +14,12 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 public class HouseCalculator extends Application {
     private final List<User> users = new ArrayList<>();
+    private CalculatorPane root;
 
     public static void main(String[] args) {
         launch(args);
@@ -44,14 +46,15 @@ public class HouseCalculator extends Application {
             UserDialog dialog = new UserDialog(null);
             Optional<User> result = dialog.show();
             result.ifPresent(user -> addUserItem(userMenu, user));
+            updateToSpend();
         };
         newUser.setOnAction(event);
 
-        CalculatorPane root = new CalculatorPane();
-
+        root = new CalculatorPane();
         VBox vb = new VBox(mb, root);
-
         stage.setScene(new Scene(vb, 600, 500));
+
+        updateToSpend();
         stage.show();
     }
 
@@ -64,9 +67,14 @@ public class HouseCalculator extends Application {
         EventHandler<ActionEvent> event = actionEvent -> {
             UserDialog dialog = new UserDialog(user);
             Optional<User> result = dialog.show();
-            // TODO update user
             result.ifPresent(user::update);
+            updateToSpend();
         };
         existingUser.setOnAction(event);
+    }
+
+    private void updateToSpend() {
+        Integer amount = users.stream().collect(Collectors.summingInt(User::getPay));
+        root.updateToSpend(amount);
     }
 }

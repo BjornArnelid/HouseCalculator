@@ -25,6 +25,6 @@ public class TestEconomy {
     @Test
     public void getDisposableIncome() {
         Economy economy = getEconomy();
-        assertEquals(10000, economy.getDisposableIncome());
+        assertEquals(10000, economy.getGrossIncome());
     }
 }

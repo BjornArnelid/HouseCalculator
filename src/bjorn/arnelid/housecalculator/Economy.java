@@ -14,7 +14,7 @@ public class Economy {
         return users.stream().collect(Collectors.summingInt(User::getPay));
     }
 
-    public int getDisposableIncome() {
+    public int getGrossIncome() {
         return (int) Math.round(0.25 * getIncome());
     }
 }

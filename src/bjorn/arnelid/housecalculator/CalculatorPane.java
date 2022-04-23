@@ -6,6 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 public class CalculatorPane extends GridPane {
+    private final Label spendAmountLabel;
+
     public CalculatorPane() {
         setAlignment(Pos.CENTER);
         setHgap(10);
@@ -15,7 +17,11 @@ public class CalculatorPane extends GridPane {
         Label toSpendLabel = new Label("To spend:");
         add(toSpendLabel, 0, 1);
 
-        Label spendAmountLabel = new Label("0");
+        spendAmountLabel = new Label("0");
         add(spendAmountLabel, 1, 1);
+    }
+
+    public void updateToSpend(int amount) {
+        spendAmountLabel.setText(String.valueOf(amount));
     }
 }
