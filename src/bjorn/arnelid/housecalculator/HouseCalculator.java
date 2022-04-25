@@ -19,8 +19,7 @@ import java.util.Optional;
 
 
 public class HouseCalculator extends Application {
-//    private final List<Member> users = new ArrayList<>();
-    private final Economy economy = new Economy();
+    private final Economy economy = new Economy(32);
     private CalculatorPane root;
 
     public static void main(String[] args) {
