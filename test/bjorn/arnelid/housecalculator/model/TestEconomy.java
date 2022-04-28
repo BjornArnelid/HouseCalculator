@@ -56,4 +56,11 @@ public class TestEconomy {
 
         assertEquals(20000, economy.getNetIncome());
     }
+
+    @Test
+    public void testMoreTaxHighIncome() {
+        Economy economy = new Economy(30);
+        economy.addMember(new Member("Test Member", "56242"));
+        assertEquals(37370, economy.getNetIncome());
+    }
 }

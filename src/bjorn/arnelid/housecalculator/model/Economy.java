@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Economy {
     private static final int TAX_FLOOR = 20431;
+    private static final int GOVT_TAX_FLOOR = 46242;
+    private static final int GOVT_TAX = 20;
     private final ArrayList<Member> members = new ArrayList<>();
     private final int taxPercentage;
 
@@ -31,9 +33,19 @@ public class Economy {
     public int getNetIncome() {
         int netIncome = 0;
         for (Member member : members) {
-            int tax = member.getPay() > TAX_FLOOR ? member.getPay() * taxPercentage / 100 : 0;
-            netIncome += member.getPay() - tax;
+            netIncome += member.getPay() - calculateTax(member.getPay());
         }
         return netIncome;
+    }
+
+    private int calculateTax(int pay) {
+        if (pay < TAX_FLOOR) {
+            return 0;
+        } else if (pay > GOVT_TAX_FLOOR) {
+            int normalTax = pay * taxPercentage / 100;
+            int governmentTax = (pay - GOVT_TAX_FLOOR) * GOVT_TAX / 100;
+            return normalTax + governmentTax;
+        }
+        return pay * taxPercentage / 100;
     }
 }
